@@ -23,7 +23,9 @@ class TaskURLTests(TestCase):
         self.guest_client = Client()
         # Создаем авторизованый клиент
         self.user = User.objects.create_user(username='StasBasov')
+        # Создаем второго неавторизованного клиента
         self.authorized_client = Client()
+        # Авторизуем пользователя
         self.authorized_client.force_login(self.user)
 
     # Проверяем общедоступные страницы
@@ -54,6 +56,9 @@ class TaskURLTests(TestCase):
         на страницу логина.
         """
         response = self.guest_client.get('/task/', follow=True)
+        # метод assertRedirects позволяет одновременно протестировать
+        # 1. статус ответа запрошенной страницы;
+        # 2. статус ответа страницы, на которую ожидается редирект.
         self.assertRedirects(
             response, '/admin/login/?next=/task/')
 

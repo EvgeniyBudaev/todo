@@ -29,7 +29,13 @@ class TaskModelTest(TestCase):
             'slug': 'Адрес для страницы с задачей',
             'image': 'Картинка',
         }
+        #  цикл «распаковывает» словарь с помощью метода items() —
+        #  создаёт из него два кортежа, доступных для итерации с помощью цикла
+        #  кортеж field содержит ключи исходного словаря field_help_texts;
+        #  кортеж expected_value содержит значения исходного словаря
+        #  field_help_texts
         for value, expected in field_verboses.items():
+            #  subTest - собирает все проверки и ожидаемые результаты в словарь
             with self.subTest(value=value):
                 self.assertEqual(
                     task._meta.get_field(value).verbose_name, expected)
