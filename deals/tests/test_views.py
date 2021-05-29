@@ -12,6 +12,8 @@ class TaskPagesTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # Создадим запись в БД:
+        # она понадобится для тестирования страницы deals:task_detail
         Task.objects.create(
             title='Заголовок',
             text='Текст',
@@ -29,6 +31,8 @@ class TaskPagesTests(TestCase):
     # Проверяем используемые шаблоны
     def test_pages_uses_correct_template(self):
         """URL-адрес использует соответствующий шаблон."""
+        # Обратиться из кода к адресам приложения по имени name можно через
+        # метод reverse() self.client.get(reverse('имя_приложения:name'))
         # Собираем в словарь пары "имя_html_шаблона: reverse(name)"
         templates_page_names = {
             'deals/home.html': reverse('deals:home'),
